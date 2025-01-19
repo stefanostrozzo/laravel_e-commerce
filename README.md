@@ -14,8 +14,8 @@ Features
 - Users can browse, search, and filter products by category, price, and more.
   
 🛒 Cart & Checkout
-Seamless cart management and checkout process.
-Order tracking and email notifications for both customers and admins.
+- Seamless cart management and checkout process.
+- Order tracking and email notifications for both customers and admins.
 
 🔧 Admin Features
 - Full CRUD functionality for managing products, categories, and brands.
