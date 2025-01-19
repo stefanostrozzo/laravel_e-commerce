@@ -1,4 +1,5 @@
-E-commerce Platform Built with Laravel 11
+<h1>E-commerce Platform Built with Laravel 11</h1>
+<br>
 Welcome to the Laravel E-commerce Platform, a modern and flexible e-commerce solution designed for scalability and efficiency. This platform is built with the latest Laravel 11 framework, offering a clean architecture, fast performance, and robust features for managing products, customers, and transactions.
 
 Features
