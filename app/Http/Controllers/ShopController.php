@@ -12,4 +12,11 @@ class ShopController extends Controller
         $products = Product::orderBy('created_at', 'desc')->paginate(12);
         return view('shop', compact('products'));
     }
+
+    public function productDetails($product_slug)
+    {
+        $product = Product::where('slug', $product_slug)->first();
+        $related_products = Product::where('slug', '<>', $product_slug)->get()->take(8);
+        return view('details', compact('product', 'related_products'));
+    }
 }
