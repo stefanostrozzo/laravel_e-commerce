@@ -170,8 +170,7 @@
                         <div class="body-title mb-10">Sale Price <span
                                 class="tf-color-1">*</span></div>
                         <input class="mb-10" type="number" min="0" placeholder="Enter sale price"
-                            name="sale_price" tabindex="0" value="{{$product->sale_price}}" aria-required="true"
-                            required="">
+                            name="sale_price" tabindex="0" value="{{$product->sale_price}}" aria-required="true">
                     </fieldset>
                     @error('regular_price')
                         <div class="alert alert-danger text-center">{{$message}}</div>
