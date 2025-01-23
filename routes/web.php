@@ -18,6 +18,8 @@ Route::get('/shop/{product_slug}', [ShopController::class, 'productDetails'])->n
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::put('/cart/increase/{rowId}', [CartController::class, 'increaseCartQty'])->name('cart.increase');
+Route::put('/cart/decrease/{rowId}', [CartController::class, 'decreaseCartQty'])->name('cart.decrease');
 
 
 Route::middleware(['auth'])->group(function(){
