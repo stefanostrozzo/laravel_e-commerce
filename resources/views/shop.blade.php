@@ -151,7 +151,7 @@
                   @foreach ($brands as $brand)
                     <li class="list-item">
                       <span class="menu-link py-1">
-                        <input type="checkbox" name="brands" value="{{$brand->id}}" class="chk-brand">
+                        <input type="checkbox" name="brands" value="{{$brand->id}}" class="chk-brand" {{in_array($brand->id, explode(',',$f_brands)) ? "checked='checked" : ''}}>
                         {{$brand->name}}
                       </span>
                       <span class="text-right float-end">
@@ -426,20 +426,38 @@
     <input type="hidden" name="page" value="{{$products->currentPage()}}">
     <input type="hidden" name="size" id="size" value="{{$size}}">
     <input type="hidden" name="order" id="order" value="{{$order}}">
+    <input type="hidden" name="brands" id="hdnBrands">
   </form>
 @endsection
 
 @push('scripts')
-  <script>
-    $(function(){
-      $('#pagesize').on('change',function(){
-        $('#size').val($("#pagesize option:selected").val());
-        $('#frmfilter').submit();
+<script>
+  $(function() {
+    // Gestisce il cambio del page size
+    $('#pagesize').on('change', function() {
+      $('#size').val($("#pagesize option:selected").val());
+      $('#frmfilter').submit();
+    });
+
+    // Gestisce il cambio del sort order
+    $('#orderby').on('change', function() {
+      $('#order').val($("#orderby option:selected").val());
+      $('#frmfilter').submit();
+    });
+
+    // Gestisce la selezione dei brand
+    $('.chk-brand').on('change', function() {
+      var brands = "";
+      $("input[name='brands']:checked").each(function() {
+        if (brands === "") {
+          brands = $(this).val();
+        } else {
+          brands += "," + $(this).val();
+        }
       });
-      $('#orderby').on('change',function(){
-        $('#order').val($("#orderby option:selected").val());
-        $('#frmfilter').submit();
-      });
-    })
-  </script>
+      $("#hdnBrands").val(brands);
+      $('#frmfilter').submit();
+    });
+  });
+</script>
 @endpush
