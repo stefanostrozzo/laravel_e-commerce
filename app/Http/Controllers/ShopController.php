@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,9 @@ class ShopController extends Controller
                 $o_order = "desc";
                 break;
         }
+        $brands = Brand::orderBy('name', 'ASC')->get();
         $products = Product::orderBy($o_column,$o_order)->paginate($size);
-        return view('shop', compact('products', 'size', 'order'));
+        return view('shop', compact('products', 'size', 'order','brands'));
     }
 
     public function productDetails($product_slug)
