@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthAdmin;
 
 Auth::routes();
@@ -23,6 +24,7 @@ Route::put('/cart/decrease/{rowId}', [CartController::class, 'decreaseCartQty'])
 Route::delete('/cart/remove/{rowId}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::delete('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
 
+Route::post('/wishlist/add', [WishlistController::class, 'add_to_wishlist'])->name('wishlist.add');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
