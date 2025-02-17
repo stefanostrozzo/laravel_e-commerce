@@ -25,6 +25,7 @@ Route::delete('/cart/remove/{rowId}', [CartController::class, 'removeItem'])->na
 Route::delete('/cart/empty', [CartController::class, 'emptyCart'])->name('cart.empty');
 
 Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.coupon.apply');
+Route::delete('/cart/remove-coupon', [CartController::class, 'removeCoupon'])->name('cart.coupon.remove');
 
 Route::post('/wishlist/add', [WishlistController::class, 'add_to_wishlist'])->name('wishlist.add');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
