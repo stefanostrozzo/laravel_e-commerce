@@ -2,11 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index(){
         return view('user.index');
+    }
+
+    public function orders(){
+        $orders = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(10);
+        return view('user.orders', compact('orders'));
+    }
+
+    public function orderDetails($id){
+        $order = Order::where('user_id', Auth::user()->id)->where('id', $id)->first();
+        if(!$order){
+            return redirect()->route('login');
+        }
+        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id')->paginate(12);
+        $transaction = Transaction::where('order_id', $order->id)->first();
+        return view('user.order-details', compact('order', 'orderItems', 'transaction'));
     }
 }
