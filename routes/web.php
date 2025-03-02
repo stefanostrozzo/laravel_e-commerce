@@ -78,4 +78,5 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
 
     Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/admin/orders/{id}/details', [AdminController::class, 'orderDetails'])->name('admin.order.details');
+    Route::put('/admin/orders/update', [AdminController::class, 'updateOrderStatus'])->name('admin.order.update.status');
 });
