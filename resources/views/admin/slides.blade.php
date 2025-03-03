@@ -1,5 +1,33 @@
 @extends('layouts.admin')
 @section('content')
+<style>
+    /* Stili per la tabella */
+    .wg-table table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .wg-table td, .wg-table th {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+    .wg-table td:nth-child(6) { /* Seleziona la sesta colonna (quella del link) */
+        max-width: 200px; /* Imposta la larghezza massima */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .wg-table td a {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
 <div class="main-content-inner">
     <div class="main-content-wrap">
         <div class="flex items-center flex-wrap justify-between gap20 mb-27">
@@ -63,7 +91,7 @@
                                 <td>{{$slide->tagline}}</td>
                                 <td>{{$slide->title}}</td>
                                 <td>{{$slide->subtitle}}</td>
-                                <td>{{$slide->link}}</td>
+                                <td><a href="{{$slide->link}}">{{$slide->link}}</a></td>
                                 <td>
                                     <div class="list-icon-function">
                                         <a href="{{route('admin.slides.edit',['id'=>$slide->id])}}">

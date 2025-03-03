@@ -64,7 +64,7 @@
                                     </div>
                                 </td>
                                 <td>{{$brand->slug}}</td>
-                                <td><a href="#" target="_blank">0</a></td>
+                                <td><a href="#" target="_blank">{{\App\Models\Product::where('brand_id',$brand->id)->count()}}</a></td>
                                 <td>
                                     <div class="list-icon-function">
                                         <a href="{{route('admin.brands.edit',['id'=>$brand->id])}}">
