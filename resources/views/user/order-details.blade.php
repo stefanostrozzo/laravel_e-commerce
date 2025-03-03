@@ -261,8 +261,42 @@
                         </tbody>
                     </table>
                 </div>
+                @if($order->status == 'canceled')
+
+                @else
+                <div class="wg-box mt-5">
+                    <form action="{{route('user.order.cancel')}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id" value="{{$order->id}}">
+                        <button type="button" class="btn btn-danger cancel-order">Cancel Order</button>
+                    </form>
+                </div>
+                @endif
             </div>
         </div>
     </section>
 </main>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('.cancel-order').on('click', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to cancel the order?",
+                    type: "warning",
+                    buttons: ["No", "Yes"],
+                    confirmButtonColor: '#adc3545'
+                }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+                })
+            });
+        });
+    </script>
+@endpush
