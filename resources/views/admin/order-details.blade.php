@@ -160,16 +160,19 @@
                         <th>Total</th>
                         <td>${{$order->total}}</td>
                         <th>Payment Mode</th>
+
                         <td>{{$transaction->mode}}</td>
                         <th>Status</th>
-                        <td>
+                        <td class="text-center">
                             @if($transaction->status == 'approved')
                                 <span class="badge bg-success">Approved</span>
                             @elseif($transaction->status == 'declined')
                                 <span class="badge bg-danger">Declined</span>
                             @elseif($transaction->status == 'refunded')
                                 <span class="badge bg-secondary">Refunded</span>
-                            @else
+                            @elseif($transaction->status == 'canceled')
+                                <span class="badge bg-danger">Canceled</span>
+                            @else 
                                 <span class="badge bg-warning">Pending</span>
                             @endif
                         </td>
@@ -177,7 +180,8 @@
                 </tbody>
             </table>
         </div>
-
+        @if($order->status == 'canceled')
+        @else
         <div class="wg-box mt-5">
             <h5>Update Order status</h5>
             <form action="{{route('admin.order.update.status')}}" method="POST">
@@ -198,7 +202,7 @@
                 </div>
             </form>
         </div>
-
+        @endif
     </div>
 </div>
 @endsection
