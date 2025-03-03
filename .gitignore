@@ -21,6 +21,14 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-/public/uploads/brands
-/public/uploads/categories
-/public/uploads/products
+/public/uploads/brands/*
+!/public/uploads/brands/.gitkeep
+/public/uploads/categories/*
+!/public/uploads/categories/.gitkeep
+/public/uploads/products/*
+!/public/uploads/products/.gitkeep
+!/public/uploads/products/thumbnails/
+/public/uploads/products/thumbnails/*
+!/public/uploads/products/thumbnails/.gitkeep
+/public/uploads/slides/*
+!/public/uploads/slides/.gitkeep
