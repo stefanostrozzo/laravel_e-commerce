@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
     Route::get('/account-orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/account-orders/{id}/details', [UserController::class, 'orderDetails'])->name('user.order.details');
+    Route::put('/account/orders/cancel', [UserController::class, 'deleteOrder'])->name('user.order.cancel');
 });
 
 

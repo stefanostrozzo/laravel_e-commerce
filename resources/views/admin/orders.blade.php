@@ -62,7 +62,19 @@
                                     <td class="text-center">${{$order->tax}}</td>
                                     <td class="text-center">${{$order->total}}</td>
 
-                                    <td class="text-center">{{$order->status}}</td>
+                                    <td class="text-center">
+                                        @if($order->status == 'approved')
+                                            <span class="badge bg-success">Approved</span>
+                                        @elseif($order->status == 'declined')
+                                            <span class="badge bg-danger">Declined</span>
+                                        @elseif($order->status == 'refunded')
+                                            <span class="badge bg-secondary">Refunded</span>
+                                        @elseif($order->status == 'canceled')
+                                            <span class="badge bg-danger">Canceled</span>
+                                        @else 
+                                            <span class="badge bg-warning">Pending</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">{{$order->created_at}}</td>
                                     <td class="text-center">{{$order->orderItems->count()}}</td>
                                     <td class="text-center">{{$order->delivered_date}}</td>
