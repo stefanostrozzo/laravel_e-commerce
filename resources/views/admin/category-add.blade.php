@@ -45,6 +45,17 @@
                 @error('slug') 
                     <span class='alert alert-danger text-center'>{{$message}}</span>
                 @enderror
+                <fieldset class="name">
+                    <div class="body-title">Category gender <span class="tf-color-1">*</span></div>
+                    <select class="flex-grow" name="gender">
+                        <option value="Unisex">Unisex</option>
+                        <option value="Male">Male</option>
+                        <option value="Woman">Woman</option>
+                    </select>
+                </fieldset>
+                @error('gender') 
+                    <span class='alert alert-danger text-center'>{{$message}}</span>
+                @enderror
                 <fieldset>
                     <div class="body-title">Upload images <span class="tf-color-1">*</span>
                     </div>

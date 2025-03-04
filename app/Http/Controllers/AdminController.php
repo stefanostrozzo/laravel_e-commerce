@@ -20,7 +20,7 @@ use App\Models\Slide;
 class AdminController extends Controller
 {
     public function index(){
-        $orders = Order::orderBy('created_at','DESC')->get()->take(5);
+        $orders = Order::orderBy('created_at','DESC')->get()->take(10);
         $dashboardDatas = DB::select("Select sum(total) As TotalAmount,
                                     sum(if(status='ordered',total,0)) As TotalOrderedAmount,
                                     sum(if(status='delivered',total,0)) As TotalDeliveredAmount,
@@ -152,12 +152,14 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:categories,slug',
+            'gender' => 'required',
             'image' => 'mimes:png,jpg,jpeg|max:2048'
         ]);
 
         $category = new Category();
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
+        $category->gender = $request->gender;
         $image = $request->file('image');
         $fileExtension = $request->file('image')->extension();
         $fileName = Carbon::now()->timestamp.'.'.$fileExtension;
@@ -177,6 +179,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:categories,slug,'.$request->id,
+            'gender' => 'required',
             'image' => 'mimes:png,jpg,jpeg|max:2048'
         ]);
 
@@ -184,7 +187,7 @@ class AdminController extends Controller
 
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
-
+        $category->gender = $request->gender;
         if($request->hasFile('image')){
             if(File::exists(public_path('uploads/categories').'/'.$category->image)){
                 File::delete(public_path('uploads/categories').'/'.$category->image);

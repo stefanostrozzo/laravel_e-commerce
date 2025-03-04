@@ -47,6 +47,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Slug</th>
+                                <th>Gender</th>
                                 <th>Products</th>
                                 <th>Action</th>
                             </tr>
@@ -64,6 +65,7 @@
                                     </div>
                                 </td>
                                 <td>{{$category->slug}}</td>
+                                <td>{{$category->gender}}</td>
                                 <td><a href="#" target="_blank">{{\App\Models\Product::where('category_id',$category->id)->count()}}</a></td>
                                 <td>
                                     <div class="list-icon-function">
