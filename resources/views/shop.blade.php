@@ -32,11 +32,11 @@
                     <li class="list-item">
                       <span class="menu-link py-1">
                         <input type="checkbox" name="categories" value="{{$category->id}}" class="chk-category" {{in_array($category->id, explode(',',$f_categories)) ? "checked='checked" : ''}}>
-                        {{$category->name}}
-                        </span>
+                        {{$category->gender}} - {{$category->name}}
+                      </span>
                       <span class="text-right float-end">
                         {{$category->products->count()}}
-                        </span>
+                      </span>
                     </li>
                   @endforeach
                 </ul>
