@@ -198,26 +198,6 @@
                         <div class="product-card__price d-flex">
                           <span class="money price text-secondary"><s>${{$sproduct->regular_price}}</s> ${{$sproduct->sale_price}}</span>
                         </div>
-
-                        <div
-                          class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
-                          <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-add-cart js-open-aside"
-                            data-aside="cartDrawer" title="Add To Cart">Add To Cart</button>
-                          <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-quick-view"
-                            data-bs-toggle="modal" data-bs-target="#quickView" title="Quick view">
-                            <span class="d-none d-xxl-block">Quick View</span>
-                            <span class="d-block d-xxl-none"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <use href="#icon_view" />
-                              </svg></span>
-                          </button>
-                          <button class="pc__btn-wl bg-transparent border-0 js-add-wishlist" title="Add To Wishlist">
-                            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <use href="#icon_heart" />
-                            </svg>
-                          </button>
-                        </div>
                       </div>
                     </div>
                   @endforeach
@@ -232,32 +212,21 @@
 
       <section class="category-banner container">
         <div class="row">
-          <div class="col-md-6">
-            <div class="category-banner__item border-radius-10 mb-5">
-              <img loading="lazy" class="h-auto" src="{{asset('assets/images/home/demo3/category_9.jpg')}}" width="690" height="665"
-                alt="" />
-              <div class="category-banner__item-mark">
-                Starting at $19
-              </div>
-              <div class="category-banner__item-content">
-                <h3 class="mb-0">Blazers</h3>
-                <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="category-banner__item border-radius-10 mb-5">
-              <img loading="lazy" class="h-auto" src="{{asset('assets/images/home/demo3/category_10.jpg')}}" width="690" height="665"
-                alt="" />
-              <div class="category-banner__item-mark">
-                Starting at $19
-              </div>
-              <div class="category-banner__item-content">
-                <h3 class="mb-0">Sportswear</h3>
-                <a href="#" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+          @foreach($rcatecories as $rcategory)
+            <div class="col-md-6">
+              <div class="category-banner__item border-radius-10 mb-5">
+                <img loading="lazy" class="h-auto" src="{{asset('uploads/categories')}}/{{$rcategory->image}}" width="690" height="665"
+                  alt="{{$rcategory->name}}" />
+                <div class="category-banner__item-mark">
+                  Starting at ${{ $rcategory->products->min('sale_price') }}
+                </div>
+                <div class="category-banner__item-content">
+                  <h3 class="mb-0">{{$rcategory->name}}</h3>
+                  <a href="{{route('shop.index')}}?categories={{$rcategory->id}}" class="btn-link default-underline text-uppercase fw-medium">Shop Now</a>
+                </div>
               </div>
             </div>
-          </div>
+          @endforeach
         </div>
       </section>
 

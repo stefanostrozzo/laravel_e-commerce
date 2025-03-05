@@ -15,8 +15,9 @@ class HomeController extends Controller
         $slides = Slide::where('status', 1)->get()->take(3);
         $categories = Category::get();
         $sproducts = Product::whereNotNull('sale_price')->where('sale_price', '<>', '')->inRandomOrder()->get()->take(8);
-        $fproducts = Product::where('featured', 1)->inRandomOrder()->get()->take(8);	
-        return view('index', compact('slides', 'categories', 'sproducts' , 'fproducts'));
+        $fproducts = Product::where('featured', 1)->inRandomOrder()->get()->take(8);
+        $rcatecories = Category::inRandomOrder()->get()->take(2);
+        return view('index', compact('slides', 'categories', 'sproducts' , 'fproducts' , 'rcatecories'));
     }
 
     public function contact()
