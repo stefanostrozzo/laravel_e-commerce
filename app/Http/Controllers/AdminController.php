@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Transaction;
 use App\Models\Slide;
+use App\Models\Contact;
 
 class AdminController extends Controller
 {
@@ -617,6 +618,23 @@ class AdminController extends Controller
         }
         $sile->delete();
         return redirect()->route('admin.slides')->with('status','Slide has been deleted succesfully');
+    }
+
+    public function contacts(){
+        $contacts = Contact::orderBy('created_at','desc')->paginate(10);
+        return view('admin.contacts', compact('contacts'));
+    }
+
+    public function contactDetails($id){
+        $contact = Contact::find($id);
+        return view('admin.contact-details', compact('contact'));
+    }
+
+    public function deleteContact($id){
+        $contact = Contact::find($id);
+        $contact->delete();
+        
+        return redirect()->route('admin.contacts')->with('status','Contact has been deleted succesfully');
     }
 
 }

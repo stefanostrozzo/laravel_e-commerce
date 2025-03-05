@@ -13,6 +13,9 @@ use App\Http\Middleware\AuthAdmin;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('home.contact');
+Route::post('/contact-us/store', [HomeController::class, 'contactStore'])->name('home.contact.store');
+
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{product_slug}', [ShopController::class, 'productDetails'])->name('shop.product.details');
 
@@ -87,4 +90,8 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::get('/admin/slides/{id}/edit', [AdminController::class, 'editSlide'])->name('admin.slides.edit');
     Route::put('/admin/slides/update', [AdminController::class, 'updateSlide'])->name('admin.slides.update');
     Route::delete('/admin/slides/{id}/delete', [AdminController::class, 'deleteSlide'])->name('admin.slides.delete');
+
+    Route::get('/admin/contact', [AdminController::class, 'contacts'])->name('admin.contacts');
+    Route::get('/admin/contact/{id}/details', [AdminController::class, 'contactDetails'])->name('admin.contact.details');
+    Route::delete('/admin/contact/{id}/delete', [AdminController::class, 'deleteContact'])->name('admin.contact.delete');
 });
