@@ -353,48 +353,102 @@
     <script src="{{asset('js/apexcharts/apexcharts.js')}}"></script>
     <script>
         $(function() {
-          $('#search-input').on('keyup', function() {
-            var search = $(this).val();
-            if (search.length > 2) {
-              $.ajax({
-                url: "{{route('admin.search')}}",
-                type: "GET",
-                daraType: "json",
-                data: {
-                  query: search
-                },
-                success: function(response) {
-                  $('#box-content-search').html('');
-                  $.each(response, function(index, item) {
-                    var url = "{{route('admin.products.edit', ['id' => 'product_id'])}}";
-                    var link = url.replace('product_id', item.id);
+            $('#search-input').on('keyup', function() {
+                var search = $(this).val();
+                if (search.length > 2) {
+                    $.ajax({
+                        url: "{{ route('admin.search') }}",
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            query: search
+                        },
+                        success: function(response) {
+                            $('#box-content-search').html(''); // Pulisci i risultati precedenti
     
-                    $('#box-content-search').append(`
-                    <li>
-                        <ul>
-                            <li class="product-item gap14 mb-10">
-                                <div class="image no-bg">
-                                    <img src="{{asset('uploads/products/thumbnails')}}/${item.image}" alt="">
-                                </div>
-                                <div class="flex items-center justify-between gap20 flex-grow">
-                                    <div class="name">
-                                        <a href="${link}" class="body-text">${item.name}</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="mb-10">
-                                <div class="divider"></div>
-                            </li>
-                        </ul>
-                      </li>
-                    `);
-                  });
+                            // Mostra i prodotti
+                            $.each(response.products, function(index, item) {
+                                var productUrl = "{{ route('admin.products.edit', ['id' => 'product_id']) }}";
+                                productUrl = productUrl.replace('product_id', item.id);
+    
+                                $('#box-content-search').append(`
+                                    <li>
+                                        <ul>
+                                            <li class="product-item gap14 mb-10">
+                                                <div class="image no-bg">
+                                                    <img src="{{ asset('uploads/products/thumbnails') }}/${item.image}" alt="">
+                                                </div>
+                                                <div class="flex items-center justify-between gap20 flex-grow">
+                                                    <div class="name">
+                                                        <a href="${productUrl}" class="body-text">${item.name} - Product</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="mb-10">
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                `);
+                            });
+    
+                            // Mostra i brand
+                            $.each(response.brands, function(index, item) {
+                                var brandUrl = "{{ route('admin.brands.edit', ['id' => 'brand_id']) }}";
+                                brandUrl = brandUrl.replace('brand_id', item.id);
+    
+                                $('#box-content-search').append(`
+                                    <li>
+                                        <ul>
+                                            <li class="product-item gap14 mb-10">
+                                                <div class="image no-bg">
+                                                    <img src="{{ asset('uploads/brands') }}/${item.image}" alt="">
+                                                </div>
+                                                <div class="flex items-center justify-between gap20 flex-grow">
+                                                    <div class="name">
+                                                        <a href="${brandUrl}" class="body-text">${item.name} - Brand</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="mb-10">
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                `);
+                            });
+    
+                            // Mostra le categorie
+                            $.each(response.categories, function(index, item) {
+                                var categoryUrl = "{{ route('admin.categories.edit', ['id' => 'category_id']) }}";
+                                categoryUrl = categoryUrl.replace('category_id', item.id);
+    
+                                $('#box-content-search').append(`
+                                    <li>
+                                        <ul>
+                                            <li class="product-item gap14 mb-10">
+                                                <div class="image no-bg">
+                                                    <img src="{{ asset('uploads/categories') }}/${item.image}" alt="">
+                                                </div>
+                                                <div class="flex items-center justify-between gap20 flex-grow">
+                                                    <div class="name">
+                                                        <a href="${categoryUrl}" class="body-text">${item.name} - Category</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="mb-10">
+                                                <div class="divider"></div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                `);
+                            });
+                        }
+                    });
                 }
-              });
-            }
             });
-          });
-      </script>
+        });
+    </script>
     <script src="{{asset('js/main.js')}}"></script>
     @stack("scripts")
 </body>

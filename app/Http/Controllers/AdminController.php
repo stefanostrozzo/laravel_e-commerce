@@ -640,8 +640,15 @@ class AdminController extends Controller
 
     public function search(Request $request){
         $query = $request->input('query');
-        $results = Product::where('name','like',"%{$query}%")->get()->take(8);
-        return response()->json($results);
+        $products  = Product::where('name','like',"%{$query}%")->get()->take(8);
+        $brands = Brand::where('name', 'like', "%{$query}%")->get()->take(8);
+        $categories = Category::where('name', 'like', "%{$query}%")->get()->take(8);
+
+        return response()->json([
+            'products' => $products,
+            'brands' => $brands,
+            'categories' => $categories,
+        ]);
     }
 
     public function users(){
