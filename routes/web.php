@@ -40,6 +40,8 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.ind
 Route::post('/place-order', [CartController::class, 'placeOrder'])->name('cart.place.order');
 Route::get('/confirm-order', [CartController::class, 'orderConfirmation'])->name('cart.confirm.order');
 
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
     Route::get('/account-orders', [UserController::class, 'orders'])->name('user.orders');
