@@ -98,4 +98,9 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::delete('/admin/contact/{id}/delete', [AdminController::class, 'deleteContact'])->name('admin.contact.delete');
 
     Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.user.edit');
+    Route::put('/admin/users/update', [AdminController::class, 'updateUser'])->name('admin.user.update');
+    Route::delete('/admin/users/{id}/delete', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
 });

@@ -17,6 +17,7 @@ use App\Models\OrderItem;
 use App\Models\Transaction;
 use App\Models\Slide;
 use App\Models\Contact;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -641,6 +642,40 @@ class AdminController extends Controller
         $query = $request->input('query');
         $results = Product::where('name','like',"%{$query}%")->get()->take(8);
         return response()->json($results);
+    }
+
+    public function users(){
+        $users = User::orderBy('id','desc')->paginate(10);
+        return view('admin.users', compact('users'));
+    }
+
+    public function editUser($id){
+        $user = User::find($id);
+        return view('admin.user-edit', compact('user'));
+    }
+
+    public function updateUser(Request $request){
+        $request -> validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'utype' => 'required'
+        ]);
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if($request->phone){
+            $user->phone = $request->phone;
+        }
+        $user->utype = $request->utype;
+        $user->save();
+        return redirect()->route('admin.users')->with('status','User has been updated succesfully');
+    }
+
+    public function deleteUser($id){
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('admin.users')->with('status','User has been deleted succesfully');
     }
 
 }
