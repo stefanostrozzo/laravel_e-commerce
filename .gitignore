@@ -32,3 +32,5 @@ yarn-error.log
 !/public/uploads/products/thumbnails/.gitkeep
 /public/uploads/slides/*
 !/public/uploads/slides/.gitkeep
+/public/uploads/users/*
+!/public/uploads/users/.gitkeep
