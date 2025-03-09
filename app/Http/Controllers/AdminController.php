@@ -665,15 +665,28 @@ class AdminController extends Controller
         $request -> validate([
             'name' => 'required',
             'email' => 'required|email',
-            'utype' => 'required'
+            'utype' => 'required',
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
-        if($request->phone){
-            $user->phone = $request->phone;
+
+        if($request->hasFile('image')){
+            if(File::exists(public_path('uploads/users').'/'.$user->image)){
+                File::delete(public_path('uploads/users').'/'.$user->image);
+            }
         }
+        
+        if($request->image){
+            $image = $request->file('image');
+            $fileExtension = $request->file('image')->extension();
+            $fileName = Carbon::now()->timestamp.'.'.$fileExtension;
+            $this->generateUserThumbnailsImage($image,  $fileName);
+            $user->image = $fileName;
+        }
+
         $user->utype = $request->utype;
         $user->save();
         return redirect()->route('admin.users')->with('status','User has been updated succesfully');
@@ -683,6 +696,17 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('admin.users')->with('status','User has been deleted succesfully');
+    }
+
+    public function moduleSearch(Request $request){
+        
+    }
+
+    public function generateUserThumbnailsImage($image, $imageName){
+        $destinationPath = public_path('uploads/users');
+        $img = Image::read($image->path());
+        $img->cover(512, 512, 'center');
+        $img->save($destinationPath . '/' . $imageName);
     }
 
 }

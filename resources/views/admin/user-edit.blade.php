@@ -28,7 +28,7 @@
         </div>
         <!-- new-category -->
         <div class="wg-box">
-            <form class="form-new-product form-style-1" method="POST" action="{{route('admin.user.update')}}">
+            <form class="form-new-product form-style-1" method="POST" action="{{route('admin.user.update')}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="id" value="{{$user->id}}">
@@ -37,11 +37,6 @@
                     <input class="flex-grow" type="text" placeholder="Contact name" name="name" tabindex="0" value="{{$user->name}}" aria-required="true">
                 </fieldset>
                 @error('name') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
-                <fieldset class="name">
-                    <div class="body-title">User phone <span class="tf-color-1">*</span></div>
-                    <input class="flex-grow" type="text" placeholder="Contact phone" name="phone" tabindex="0" value="{{$user->phone}}" aria-required="true">
-                </fieldset>
-                @error('phone') <span class="alert alert-danger text-center">{{ $message }}</span> @enderror
                 <fieldset class="name">
                     <div class="body-title">User email <span class="tf-color-1">*</span></div>
                     <input class="flex-grow" type="text" placeholder="Contact email" name="email" tabindex="0" value="{{$user->email}}" aria-required="true">
@@ -54,6 +49,28 @@
                         <option value="USR" {{$user->utype == 'USR' ? 'selected' : ''}}>USER</option>
                     </select>
                 </fieldset>
+                <fieldset>
+                    <div class="body-title">Upload image <span class="tf-color-1">*</span>
+                    </div>
+                    <div class="upload-image flex-grow">
+                        <div class="item" id="imgpreview" style="display:none">
+                            <img src="upload-1.html" class="effect8" alt="">
+                        </div>
+                        <div id="upload-file" class="item up-load">
+                            <label class="uploadfile" for="myFile">
+                                <span class="icon">
+                                    <i class="icon-upload-cloud"></i>
+                                </span>
+                                <span class="body-text">Drop your images here or select <span
+                                        class="tf-color">click to browse</span></span>
+                                <input type="file" id="myFile" name="image" accept="image/*">
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                @error('image') 
+                    <span class='alert alert-danger text-center'>{{$message}}</span>
+                @enderror
                 <div class="bot">
                     <div></div>
                     <button class="tf-button w208" type="submit">Save</button>
@@ -63,3 +80,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function name(params) {
+            $('#myFile').on('change',function(e){
+                const image = $("#myFile");
+                const [file] = this.files;
+                if(file){
+                    $("#imgpreview img").attr('src',URL.createObjectURL(file));
+                    $("#imgpreview").show();
+                }
+            });
+        })
+    </script>
+@endpush

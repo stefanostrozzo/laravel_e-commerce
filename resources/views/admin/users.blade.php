@@ -52,7 +52,6 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>E-mail</th>
-                                    <th>Phone</th>
                                     <th>User type</th>
                                     <th>Action</th>
                                 </tr>
@@ -61,9 +60,19 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{$user->id}}</td>
-                                        <td>{{$user->name}}</td>
+                                        <td class="pname">
+                                            <div class="image">
+                                                @if($user->image)
+                                                    <img src="{{asset('uploads/users/')}}/{{$user->image}}" alt="{{$user->name}}" class="image">
+                                                @else
+                                                    <img src="{{ asset('uploads/users/default-user.png') }}" alt="Default User Image" class="profile-image">
+                                                @endif
+                                            </div>
+                                            <div class="name">
+                                                <a href="#" class="body-title-2">{{$user->name}}</a>
+                                            </div>
+                                        </td>
                                         <td>{{$user->email}}</td>
-                                        <td>{{$user->phone}}</td>
                                         <td>{{$user->utype == "ADM" ? 'ADMIN' : 'USER'}}</td>
                                         <td>
                                             <div class="list-icon-function">
