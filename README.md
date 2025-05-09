@@ -75,6 +75,21 @@ Welcome to this Laravel 11 E-commerce shop. This platform is built with Laravel 
     php artisan serve
 ```
 
+<h3> Docker</h3>
+
+After editing the docker-compose.yaml based on your .env and eventually the nginx.conf run the following commands:
+
+```sh
+    docker-compose up -d --build
+    docker-compose run --rm composer install
+    docker-compose run --rm node npm install
+    docker-compose exec php php artisan key:generate
+    docker-compose exec php chown -R www-data:www-data /var/www/html/storage
+    docker-compose exec php chmod -R 775 /var/www/html/storage
+    docker-compose exec php php artisan migrate
+    docker-compose exec php php artisan db:seed
+```
+
 ## **Usage**
 
 -   Add items to wishlist/shop
