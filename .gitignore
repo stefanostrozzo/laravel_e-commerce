@@ -34,3 +34,4 @@ yarn-error.log
 !/public/uploads/slides/.gitkeep
 /public/uploads/users/*
 !/public/uploads/users/.gitkeep
+package-lock.json
