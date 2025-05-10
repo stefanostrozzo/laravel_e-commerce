@@ -38,7 +38,7 @@ Welcome to this Laravel 11 E-commerce shop. This platform is built with Laravel 
 
 <hr>
 
-<h3>📦 Installazione</h3>
+<h3>📦 Installation </h3>
 
 <h4>Clone repository:</h4>
 
